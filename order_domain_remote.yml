@@ -1,0 +1,21 @@
+slots:
+  orderid:
+    type: text
+
+intents:
+  - greet
+  - thankyou
+  - goodbye
+  - search_order_status
+
+entities:
+  - orderid
+
+action_factory: remote
+
+actions:
+  - default
+  - greet
+  - goodbye
+  - youarewelcome
+  - search_order_status
