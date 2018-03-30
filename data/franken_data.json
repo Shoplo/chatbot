@@ -1,0 +1,44 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "where is my order 1001 status",
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 18,
+            "end": 22,
+            "value": "1001",
+            "entity": "orderid"
+          }
+        ]
+      },
+      {
+        "text": "where is my order 1001",
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 18,
+            "end": 22,
+            "value": "1001",
+            "entity": "orderid"
+          }
+        ]
+      },
+      {
+        "text": "order 1001 status",
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 6,
+            "end": 10,
+            "value": "1001",
+            "entity": "orderid"
+          }
+        ]
+      }
+    ],
+    "entity_examples": [],
+    "intent_examples": []
+  }
+}

@@ -1,21 +1,45 @@
 slots:
+  userid:
+    type: text
   orderid:
     type: text
+  order_status:
+    type: unfeaturized
 
 intents:
   - greet
+  - inform
   - thankyou
   - goodbye
-  - search_order_status
+  - request_info
 
 entities:
   - orderid
+  - userid
+
+templates:
+  utter_greet:
+    - "hey there!"
+  utter_goodbye:
+    - "goodbye :("
+    - "Bye-bye"
+  utter_ack_dosearch:
+    - "ok let me see what I can find"
+  utter_ask_orderid:
+    - "what is your order id?"
+  utter_ask_howcanhelp:
+    - "how can I help you?"
+  utter_on_it:
+    - "I'm on it"
 
 action_factory: remote
 
 actions:
-  - default
-  - greet
-  - goodbye
-  - youarewelcome
-  - search_order_status
+  - utter_greet
+  - utter_goodbye
+  - utter_ack_dosearch
+  - utter_ask_orderid
+  - utter_ask_howcanhelp
+  - utter_on_it
+  - action_search_order
+  - action_suggest
