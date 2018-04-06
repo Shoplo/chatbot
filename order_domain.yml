@@ -12,6 +12,7 @@ intents:
   - thankyou
   - goodbye
   - request_info
+  - ask_status
 
 entities:
   - orderid
@@ -23,16 +24,16 @@ templates:
   utter_goodbye:
     - "goodbye :("
     - "Bye-bye"
+  utter_default:
+    - "default message"
   utter_ack_dosearch:
     - "ok let me see what I can find"
-  utter_ask_orderid:
-    - "what is your order id?"
   utter_ask_howcanhelp:
     - "how can I help you?"
   utter_on_it:
     - "I'm on it"
-
-action_factory: remote
+  utter_ask_orderid:
+    - "what order number like me to search?"
 
 actions:
   - utter_greet
@@ -41,5 +42,5 @@ actions:
   - utter_ask_orderid
   - utter_ask_howcanhelp
   - utter_on_it
-  - action_search_order
-  - action_suggest
+  - bot.ActionSearchOrder
+  - bot.ActionSuggest

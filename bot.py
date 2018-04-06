@@ -32,7 +32,8 @@ class ActionSearchOrder(Action):
         dispatcher.utter_message("looking for order status")
         order_api = OrderAPI()
         orderStatus = order_api.search(tracker.get_slot("orderid"))
-        return [SlotSet("order_status", orderStatus)]
+        SlotSet("order_status", orderStatus)
+        return []
 
 class ActionSuggest(Action):
     def name(self):
@@ -46,7 +47,7 @@ class ActionSuggest(Action):
                                  "find anything else :)")
         return []
 
-def train_dialogue(domain_file="order_domain_remote.yml",
+def train_dialogue(domain_file="order_domain.yml",
                    model_path="models/dialogue",
                    training_data_file="data/babi_stories.md"):
     agent = Agent(domain_file,
