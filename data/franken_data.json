@@ -2,6 +2,18 @@
   "rasa_nlu_data": {
     "common_examples": [
       {
+        "text": "where is my order",
+        "intent": "ask_status"
+      },
+      {
+        "text": "where is my order status",
+        "intent": "ask_status"
+      },
+      {
+        "text": "order status",
+        "intent": "ask_status"
+      },
+      {
         "text": "where is my order 1001 status",
         "intent": "inform",
         "entities": [
@@ -51,6 +63,30 @@
         "text": "bye",
         "intent": "goodbye",
         "entities": []
+      },
+      {
+        "text": "0123456789",
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 0,
+            "end": 10,
+            "value": "0123456789",
+            "entity": "orderid"
+          }
+        ]
+      },
+      {
+        "text": "my order number is 1001",
+        "intent": "inform",
+        "entities": [
+          {
+            "start": 19,
+            "end": 23,
+            "value": "1001",
+            "entity": "orderid"
+          }
+        ]
       }
     ],
     "entity_examples": [],
