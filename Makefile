@@ -2,19 +2,22 @@ build-dev:
 	docker build -f dev.Dockerfile -t shoplo/chatbot .
 
 stop:
-	docker stop shoplo_bot || true
-	docker rm shoplo_bot || true
+	docker stop shoplo_chatbot || true
+	docker rm shoplo_chatbot || true
+	
+rm: stop
+	docker rm shoplo_chatbot
 
 run: stop
-	docker run -d -p 5005:5005 --name=shoplo_bot -v `pwd`:/chatbot shoplo/chatbot
+	docker run -d -p 5005:5005 --name=shoplo_chatbot -v `pwd`:/chatbot shoplo/chatbot
 
 bash:
-	docker exec -ti shoplo_bot bash
+	docker exec -ti shoplo_chatbot bash
 
 logs:
-	docker logs -f shoplo_bot
+	docker logs -f shoplo_chatbot
 
 learn:
-	docker exec -ti shoplo_bot "supervisorctl -c /etc/supervisor/supervisord.conf restart all"
-	docker exec -ti shoplo_bot "cd /chatbot && /usr/bin/python bot.py train-nlu"
-	docker exec -ti shoplo_bot "cd /chatbot && /usr/bin/python bot.py train-dialogue"
+	docker exec -ti shoplo_chatbot python bot.py train-nlu
+	docker exec -ti shoplo_chatbot python bot.py train-dialogue
+	docker exec shoplo_chatbot /usr/bin/supervisorctl restart all

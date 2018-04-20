@@ -13,4 +13,4 @@ WORKDIR /chatbot
 ENTRYPOINT []
 #CMD python -m rasa_core.server -d models/dialogue -u models/nlu/default/current
 
-CMD python supervisord -n -c /etc/supervisor/supervisord.conf
+CMD supervisord -n -c /etc/supervisor/supervisord.conf
