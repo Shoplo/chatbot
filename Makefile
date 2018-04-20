@@ -2,7 +2,7 @@ build-dev:
 	docker build -f dev.Dockerfile -t shoplo/chatbot .
 
 build-prod:
-	docker build -f prod.Dockerfile -t shoplo/chatbot .
+	docker build -f Dockerfile -t shoplo/chatbot .
 
 stop:
 	docker stop shoplo_chatbot || true
