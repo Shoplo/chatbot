@@ -2,15 +2,12 @@ FROM rasa/rasa_nlu
 
 RUN apt-get update
 RUN apt-get -y install build-essential
-
-WORKDIR /chatbot
-#COPY ./requirements.txt ./
-#RUN pip install -r requirements.txt
 RUN pip install rasa_core
-#RUN pip install rasa_nlu
 
+RUN mkdir -p /chatbot
+WORKDIR /chatbot
 
-COPY ./ ./
+COPY . .
 
 RUN python bot.py train-nlu
 RUN python bot.py train-dialogue

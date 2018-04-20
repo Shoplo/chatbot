@@ -1,0 +1,53 @@
+
+pipeline:
+  build:
+    image: plugins/ecr
+    repo: 373207204583.dkr.ecr.eu-west-1.amazonaws.com/${DRONE_REPO_NAME}
+    region: eu-west-1
+    tags: ${DRONE_BRANCH}
+    build_args: -f prod.Dockerfile
+    when:
+      branch: [develop, master]
+
+  staging:
+    image: appleboy/drone-ssh
+    host: 10.0.1.235
+    username: ec2-user
+    secrets: [ssh_key]
+    when:
+      status: success
+      branch: [develop]
+    script: > 
+        docker service update
+        --quiet
+        --detach=false
+        --with-registry-auth
+        --image 373207204583.dkr.ecr.eu-west-1.amazonaws.com/${DRONE_REPO_NAME}:${DRONE_BRANCH}
+        staging_${DRONE_REPO_NAME}
+
+#  production:
+#    image: appleboy/drone-ssh
+#    host: 10.0.1.187
+#    username: ec2-user
+#    secrets: [ssh_key]
+#    when:
+#      status: success
+#      branch: [master]
+#    script: >
+#        docker service update
+#        --quiet
+#        --detach=false
+#        --with-registry-auth
+#        --image 373207204583.dkr.ecr.eu-west-1.amazonaws.com/${DRONE_REPO_NAME}:${DRONE_BRANCH}
+#        prod_${DRONE_REPO_NAME}
+
+  notify:
+    image: plugins/slack
+    secrets: [slack_webhook]
+    when:
+      branch: [develop, master]
+      status: [success, failure]
+    template: |
+      {{uppercasefirst build.status}} in build for <${DRONE_BUILD_LINK}|${DRONE_REPO_NAME}:${DRONE_BRANCH}#${DRONE_BUILD_NUMBER}>
+      `<${DRONE_COMMIT_LINK}|${DRONE_COMMIT_SHA:0:8}>` ${DRONE_COMMIT_MESSAGE} - ${DRONE_COMMIT_AUTHOR}
+
